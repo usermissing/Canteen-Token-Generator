@@ -1,8 +1,8 @@
 <?php
-include 'db_connection.php';
+include 'connection.php';
 
 $sql = "SELECT * FROM food_items"; 
-$result = $conn->query($sql);
+$result = $con->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
