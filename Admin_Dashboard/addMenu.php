@@ -1,3 +1,4 @@
+<?php include("./adminheader.php");?>
 <?php
 require('../connection.php');
 
@@ -45,20 +46,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Menu Item</title>
 </head>
+
 <body>
     <h1>Add New Menu Item</h1>
     <form action="" method="POST" enctype="multipart/form-data">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" required><br><br>
-        
+
         <label for="price">Price:</label><br>
         <input type="number" step="0.01" id="price" name="price" required><br><br>
-        
+
         <!-- <label for="available_days">Available Days:</label><br>
         <select id="available_days" name="available_days[]" multiple required>
             <option value="Monday">Monday</option>
@@ -69,23 +72,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <option value="Saturday">Saturday</option>
             <option value="Sunday">Sunday</option>
         </select><br><br> -->
-        
+
         <!-- <label for="quantity">Quantity:</label><br>
         <input type="number" id="quantity" name="quantity" required><br><br>
          -->
         <label for="image">Image:</label><br>
         <input type="file" id="image" name="image"><br><br>
-        
+
         <!-- <label for="availability_status">Availability Status:</label><br>
         <select id="availability_status" name="availability_status" required>
             <option value="Available">Available</option>
             <option value="Unavailable">Unavailable</option>
         </select><br><br> -->
-        
+
         <label for="description">Description:</label><br>
         <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
-        
+
         <button type="submit">Add Item</button>
     </form>
 </body>
+
 </html>

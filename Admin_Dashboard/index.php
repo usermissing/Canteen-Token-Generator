@@ -21,18 +21,20 @@ function fetchTodayItems($con) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Items for Today's Menu</title>
 </head>
-<body>
-<div>
 
-    <h1>Select Items for Today's Menu</h1>
-    <form action="update_todays_menu.php" method="POST">
-        <label for="items">Select Items:</label><br>
-        <?php
+<body>
+    <div>
+        <?php include("./adminheader.php");?>
+        <h1>Select Items for Today's Menu</h1>
+        <form action="update_todays_menu.php" method="POST">
+            <label for="items">Select Items:</label><br>
+            <?php
         $items = fetchItems($con);
         if ($items->num_rows > 0) {
             while ($item = $items->fetch_assoc()) {
@@ -43,15 +45,15 @@ function fetchTodayItems($con) {
             echo "<p>No items available</p>";
         }
         ?>
-        <br>
-        <button type="submit">Next</button>
-    </form>
-     </div>
-     <div>
-     <h1> Today's Menu</h1>
-    <form action="update_todays_menu.php" method="POST">
-        <label for="items">Select Items:</label><br>
-        <?php
+            <br>
+            <button type="submit">Next</button>
+        </form>
+    </div>
+    <div>
+        <h1> Today's Menu</h1>
+        <form action="update_todays_menu.php" method="POST">
+            <label for="items">Select Items:</label><br>
+            <?php
         $items = fetchTodayItems($con);
         if ($items->num_rows > 0) {
             while ($item = $items->fetch_assoc()) {
@@ -67,9 +69,10 @@ function fetchTodayItems($con) {
             echo "<p>No items available for today</p>";
         }
         ?>
-        <br>
-    </form>
-     </div>
+            <br>
+        </form>
+    </div>
 
 </body>
+
 </html>
