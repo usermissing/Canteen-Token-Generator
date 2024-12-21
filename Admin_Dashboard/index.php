@@ -59,7 +59,7 @@ function fetchTodayItems($con) {
                 // echo "<input type='checkbox' name='selected_items[]' value='{$item['item_id']}'> {$item['name']}<br>";
                 echo "Name: {$item['name']}<br>";
                 echo "Quantity: {$item['quantity']}<br>";
-                echo "Available Days: {$item['available_days']}<br>";
+                // echo "Available Days: {$item['available_days']}<br>";
                 echo "Price: {$item['price']}<br>"; // Assuming you have a price column in your table
                 echo "<hr>";
             }
