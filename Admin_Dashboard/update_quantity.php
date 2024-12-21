@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['quantities']) && isset
         $new_quantity = $quantities[$i];
 
         // Update the quantity and available_days in the food_items table
-        $sql = "UPDATE food_items SET quantity = ?, available_days = DAYNAME(CURDATE()) WHERE item_id = ?";
+        $sql = "UPDATE food_items SET quantity = ?, added_on = NOW() WHERE item_id = ?";
         $stmt = $con->prepare($sql);
         $stmt->bind_param('ii', $new_quantity, $item_id);
         

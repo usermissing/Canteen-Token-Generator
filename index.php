@@ -1,12 +1,15 @@
 <?php
 include 'connection.php';
-$today_day = date('l');
+$today_date = date('Y-m-d'); 
 
-// $sql = "SELECT * FROM food_items "; 
-$sql = "SELECT * FROM food_items WHERE availability_status = 'Available' AND FIND_IN_SET('$today_day', available_days)";
+// Prepare SQL query
+$sql = "SELECT * FROM food_items WHERE DATE(added_on) = ?";
+$result = $con->prepare($sql);
+$result->bind_param('s', $today_date);  // Bind the current date
+$result->execute();
 
-// $sql = "SELECT * FROM food_items WHERE availability_status = 'Available' AND available_days = $today_day";
-$result = $con->query($sql);
+// Get the result
+$result_set = $result->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +32,7 @@ $result = $con->query($sql);
     .navbar {
         display: flex;
         justify-content: flex-end;
-        background-color: #333;
+        background-color: #588157;
         padding: 10px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         position: sticky;
@@ -38,7 +41,7 @@ $result = $con->query($sql);
     }
 
     .navbar a {
-        color: white;
+        color: #d4a373;
         text-decoration: none;
         margin: 0 15px;
         padding: 8px 16px;
@@ -49,6 +52,11 @@ $result = $con->query($sql);
         background-color: #575757;
         border-radius: 4px;
     }
+    .navbar img {
+            height: 90px;
+            width: 90px;
+            margin-right: auto;
+        }
 
     .container {
         padding: 40px 20px;
@@ -198,8 +206,9 @@ $result = $con->query($sql);
 <body>
 
     <div class="navbar">
-        <a href="#">About Us</a>
-        <a href="#">Order Here</a>
+    <img src="/images/logo.png" alt="Logo">
+        <a href="index.php">About Us</a>
+        
         <a href="#">Menu</a>
         <a href="history.php">History</a>
 
@@ -447,7 +456,6 @@ $result = $con->query($sql);
     </div>
 
 </body>
-
 
 
 
