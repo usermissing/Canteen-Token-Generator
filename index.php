@@ -24,7 +24,7 @@ $result = $con->query($sql);
     .navbar {
         display: flex;
         justify-content: flex-end;
-        background-color: #333;
+        background-color: #588157;
         padding: 10px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         position: sticky;
@@ -33,7 +33,7 @@ $result = $con->query($sql);
     }
 
     .navbar a {
-        color: white;
+        color: #d4a373;
         text-decoration: none;
         margin: 0 15px;
         padding: 8px 16px;
@@ -44,6 +44,11 @@ $result = $con->query($sql);
         background-color: #575757;
         border-radius: 4px;
     }
+    .navbar img {
+            height: 90px;
+            width: 90px;
+            margin-right: auto;
+        }
 
     .container {
         padding: 40px 20px;
@@ -193,8 +198,9 @@ $result = $con->query($sql);
 <body>
 
     <div class="navbar">
-        <a href="#">About Us</a>
-        <a href="#">Order Here</a>
+    <img src="/images/logo.png" alt="Logo">
+        <a href="index.php">About Us</a>
+        
         <a href="#">Menu</a>
     </div>
 
@@ -453,11 +459,11 @@ $result = $con->query($sql);
 <!-- for fetching token queue in time -->
 
 
-// Fetch tokens every 5 seconds
+<!-- // Fetch tokens every 5 seconds
 setInterval(fetchTokens, 5000);
 
 // Call immediately on page load
-fetchTokens();
+fetchTokens(); -->
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
