@@ -3,89 +3,106 @@ require('../connection.php');
 
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Fetch form data
     $name = $_POST['name'];
     $price = $_POST['price'];
-    // $available_days = implode(", ", $_POST['available_days']); // Convert array to string
-    // $quantity = $_POST['quantity'];
-    // $availability_status = $_POST['availability_status'];
     $description = $_POST['description'];
 
-    // Handle image upload
     $image_url = null;
     if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
-        $target_dir = "uploads/";
+        $target_dir = "../uploads/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
+        
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
             $image_url = $target_file;
         } else {
-            echo "Error uploading the image.";
+            $error_message = "Error uploading the image: " . htmlspecialchars($_FILES['image']['error']);
         }
+    } else {
+        $error_message = "No image uploaded or an error occurred.";
     }
 
-    // Function to add a menu item
-    function addMenuItem($con, $name, $price,  $image_url, $description) {
-        $sql = "INSERT INTO food_items (name, price, image_url, description, added_on)
-                VALUES (?, ?, ?, ?, NOW())";
-        
-        $stmt = $con->prepare($sql);
-        $stmt->bind_param("sdss", $name, $price,  $image_url, $description);
+    // Check if product name already exists
+    $stmt = $con->prepare("SELECT name FROM food_items WHERE name = ?");
+    $stmt->bind_param("s", $name);
+    $stmt->execute();
+    $stmt->store_result();
 
-        if ($stmt->execute()) {
-            echo "Menu item added successfully!";
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-        $stmt->close();
+    if ($stmt->num_rows > 0) {
+        $error_message = "Item already added ";
+    } else {
+        // Add the menu item only if name doesn't exist
+        addMenuItem($con, $name, $price, $image_url, $description);
+    }
+}
+
+// Function to add a new menu item
+function addMenuItem($con, $name, $price, $image_url, $description) {
+    $sql = "INSERT INTO food_items (name, price, image_url, description)
+            VALUES (?, ?, ?, ?)";
+
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("sdss", $name, $price, $image_url, $description);
+
+    if ($stmt->execute()) {
+        global $success_message;
+        $success_message = "Menu item added successfully!";
+    } else {
+        global $error_message;
+        $error_message = "Error adding item: " . $stmt->error;
     }
 
-    // Add the menu item
-    addMenuItem($con, $name, $price, $image_url,  $description);
+    $stmt->close();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Menu Item</title>
+    <script src="https://cdn.tailwindcss.com"></script> 
 </head>
-<body>
-    <h1>Add New Menu Item</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+<body class="bg-gray-100 font-sans">
+    <?php @include "header.php" ?>
+    <div class="container mx-auto p-6">
+        <h1 class="text-center text-2xl font-bold text-gray-800 mb-6 ">Add New Menu Item</h1>
+
+        <?php if (isset($success_message)): ?>
+            <p class="text-green-500 text-center mb-4"><?= htmlspecialchars($success_message) ?></p>
+        <?php endif; ?>
+
+        <?php if (isset($error_message)): ?>
+            <p class="text-red-500 text-center mb-4"><?= htmlspecialchars($error_message) ?></p>
+        <?php endif; ?>
         
-        <label for="price">Price:</label><br>
-        <input type="number" step="0.01" id="price" name="price" required><br><br>
-        
-        <!-- <label for="available_days">Available Days:</label><br>
-        <select id="available_days" name="available_days[]" multiple required>
-            <option value="Monday">Monday</option>
-            <option value="Tuesday">Tuesday</option>
-            <option value="Wednesday">Wednesday</option>
-            <option value="Thursday">Thursday</option>
-            <option value="Friday">Friday</option>
-            <option value="Saturday">Saturday</option>
-            <option value="Sunday">Sunday</option>
-        </select><br><br> -->
-        
-        <!-- <label for="quantity">Quantity:</label><br>
-        <input type="number" id="quantity" name="quantity" required><br><br>
-         -->
-        <label for="image">Image:</label><br>
-        <input type="file" id="image" name="image"><br><br>
-        
-        <!-- <label for="availability_status">Availability Status:</label><br>
-        <select id="availability_status" name="availability_status" required>
-            <option value="Available">Available</option>
-            <option value="Unavailable">Unavailable</option>
-        </select><br><br> -->
-        
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
-        
-        <button type="submit">Add Item</button>
-    </form>
+        <form action="" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="mb-4">
+                <label for="name" class="block text-lg font-semibold text-gray-700">Name:</label>
+                <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+            
+            <div class="mb-4">
+                <label for="price" class="block text-lg font-semibold text-gray-700">Price:</label>
+                <input type="number" max="500" id="price" name="price" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+            
+            <div class="mb-4">
+                <label for="image" class="block text-lg font-semibold text-gray-700">Image:</label>
+                <input type="file" required id="image" name="image" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+            </div>
+            
+            <div class="mb-4">
+                <label for="description" class="block text-lg font-semibold text-gray-700">Description:</label>
+                <textarea id="description" name="description" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+            </div>
+            
+            <div class="text-center">
+                <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Add Item
+                </button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

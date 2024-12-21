@@ -1,8 +1,15 @@
 <?php
 include 'connection.php';
+$today_date = date('Y-m-d'); 
 
-$sql = "SELECT * FROM food_items"; 
-$result = $con->query($sql);
+// Prepare SQL query
+$sql = "SELECT * FROM food_items WHERE DATE(added_on) = ?";
+$result = $con->prepare($sql);
+$result->bind_param('s', $today_date);  // Bind the current date
+$result->execute();
+
+// Get the result
+$result_set = $result->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -133,8 +140,8 @@ $result = $con->query($sql);
     <h1>Welcome to Our Restaurant</h1>
     <div class="food-selection">
         <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
+        if ($result_set->num_rows > 0) {
+            while ($row = $result_set->fetch_assoc()) {
                 echo "<div class='food-item'>
                         <img src='images/{$row['image_url']}' alt='{$row['name']}'>
                         <div class='food-item-details'>
