@@ -25,6 +25,13 @@
         $quantity = $item['quantity']; // Quantity from the frontend
         $stmt->bind_param("iii", $oid, $item_id, $quantity);
         $stmt->execute();
+        //decrease
+        // Decrease the quantity of the item in the inventory
+        $update_inventory_sql = "UPDATE food_items SET quantity = quantity - ? WHERE item_id = ?";
+        $update_stmt = $con->prepare($update_inventory_sql);
+        $update_stmt->bind_param("ii", $quantity, $item_id);
+        $update_stmt->execute();
+        $update_stmt->close();
     }
 
     $stmt->close();

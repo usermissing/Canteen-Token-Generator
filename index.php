@@ -1,7 +1,11 @@
 <?php
 include 'connection.php';
+$today_day = date('l');
 
-$sql = "SELECT * FROM food_items"; 
+// $sql = "SELECT * FROM food_items "; 
+$sql = "SELECT * FROM food_items WHERE availability_status = 'Available' AND FIND_IN_SET('$today_day', available_days)";
+
+// $sql = "SELECT * FROM food_items WHERE availability_status = 'Available' AND available_days = $today_day";
 $result = $con->query($sql);
 ?>
 <!DOCTYPE html>
@@ -13,6 +17,7 @@ $result = $con->query($sql);
     <title>Homepage</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
     body {
         font-family: Arial, sans-serif;
@@ -202,6 +207,8 @@ $result = $con->query($sql);
         <a href="index.php">About Us</a>
         
         <a href="#">Menu</a>
+        <a href="history.php">History</a>
+
     </div>
 
     <div class="container">
@@ -238,17 +245,8 @@ $result = $con->query($sql);
         <h1>Welcome to Our Restaurant</h1>
         <!-- show token queue -->
 
-        <div class="tokenqueue">
 
-        </div>
-        <?php
-         $tokensql = "SELECT * FROM orders WHERE status = 'Pending' ORDER BY oid ASC LIMIT 5";
-         
-         $tokenres = $con->query($tokensql);
-         while ($row = $tokenres->fetch_assoc()) {
-            echo "<span>".$row['oid']."</span>";
-        }
-         ?>
+
         <div class="food-selection">
             <?php
         if ($result->num_rows > 0) {
@@ -258,6 +256,7 @@ $result = $con->query($sql);
                         <div class='food-item-details'>
                             <span><strong>Food Item:</strong> <span class='orderd-items' id='".$row['item_id']."'>{$row['name']}</span></span>
                             <span><strong>Price:</strong> Rs{$row['price']}</span>
+                            <div>Remaining Quantity: ".$row['quantity']."</div>
                             <label for='quantity-{$row['quantity']}'>Quantity:</label>
                             <input type='number' id='quantity-{$row['item_id']}' data-price='{$row['price']}' value='0' name='quantity-{$row['item_id']}' min='0' max='10' onchange='calculateTotal()'>
                         </div>
@@ -332,8 +331,8 @@ $result = $con->query($sql);
                         // Attempt to parse JSON
                         if (data.success) {
                             displayOrdersItems()
-
                             // decreaseStock();
+
                         } else {
                             let issueMessages = "Available\n";
                             data.issues.forEach(issue => {
@@ -455,16 +454,8 @@ $result = $con->query($sql);
 
 </body>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- for fetching token queue in time -->
 
 
-<!-- // Fetch tokens every 5 seconds
-setInterval(fetchTokens, 5000);
-
-// Call immediately on page load
-fetchTokens(); -->
-</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
 </script>
