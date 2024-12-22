@@ -42,20 +42,20 @@
 
     pay_esewa($total_cost,$oid);
 
-    $order_summary = "";
-foreach ($order_items as $item) {
-    $order_summary .=  $item['name'] . " - " . $item['quantity'] . "<br>";
-}
+//     $order_summary = "";
+// foreach ($order_items as $item) {
+//     $order_summary .=  $item['name'] . " - " . $item['quantity'] . "<br>";
+// }
 
-// Display the order summary along with the order ID (token) in large letters
-echo "
-    <div style='text-align: center; font-family: Arial, sans-serif;'>
-        <h1>Order Confirmed</h1>
-        <p style='font-size: 24px;'>Token Number</p>
-        <strong style='font-size: 48px; color: green;'>$oid</strong>
-        <h3>Ordered Items:</h3>
-        <p style='font-size: 18px;'>$order_summary</p>
-        <p style='font-size: 24px;'>Total Cost: Rs. $total_cost</p>
-    </div>
-";
+// // Display the order summary along with the order ID (token) in large letters
+// echo "
+//     <div style='text-align: center; font-family: Arial, sans-serif;'>
+//         <h1>Order Confirmed</h1>
+//         <p style='font-size: 24px;'>Token Number</p>
+//         <strong style='font-size: 48px; color: green;'>$oid</strong>
+//         <h3>Ordered Items:</h3>
+//         <p style='font-size: 18px;'>$order_summary</p>
+//         <p style='font-size: 24px;'>Total Cost: Rs. $total_cost</p>
+//     </div>
+// ";
 ?>
