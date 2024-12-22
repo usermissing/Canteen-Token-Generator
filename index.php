@@ -52,11 +52,12 @@ $result_set = $result->get_result();
         background-color: #575757;
         border-radius: 4px;
     }
+
     .navbar img {
-            height: 90px;
-            width: 90px;
-            margin-right: auto;
-        }
+        height: 90px;
+        width: 90px;
+        margin-right: auto;
+    }
 
     .container {
         padding: 40px 20px;
@@ -206,11 +207,12 @@ $result_set = $result->get_result();
 <body>
 
     <div class="navbar">
-    <img src="/images/logo.png" alt="Logo">
+        <img src="/images/logo.png" alt="Logo">
         <a href="index.php">About Us</a>
-        
+
         <a href="#">Menu</a>
-        <a href="history.php">History</a>
+        <a href="./queue.php">Queue</a>
+        <a href="./orderhistory.php">History</a>
 
     </div>
 
@@ -252,8 +254,8 @@ $result_set = $result->get_result();
 
         <div class="food-selection">
             <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
+        if ($result_set->num_rows > 0) {
+            while ($row = $result_set->fetch_assoc()) {
                 echo "<div class='food-item'>
                         <img src='images/{$row['image_url']}' alt='{$row['name']}'>
                         <div class='food-item-details'>

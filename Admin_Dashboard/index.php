@@ -122,24 +122,7 @@ if (isset($_POST['remove'])) {
         </div>
     </div>
 
-    <div class="container">
-        <h1>Today's Menu</h1>
-        <div class="grid-container">
-            <?php
-            $items = fetchTodayItems($con);
-            if ($items->num_rows > 0) {
-                while ($item = $items->fetch_assoc()) {
-                    echo "<div class='item'>";
-                    echo "<strong>Name:</strong> {$item['name']}<br>";
-                    echo "<strong>Quantity:</strong> {$item['quantity']}<br>";
-                    echo "<strong>Price:</strong> {$item['price']}<br>";
-                    echo "</div>";
-                }
-            } else {
-                echo "<p>No items available for today</p>";
-            }
-            ?>
-        </div>
+
     </div>
 </body>
 

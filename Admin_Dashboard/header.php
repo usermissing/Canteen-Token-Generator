@@ -13,9 +13,9 @@ require('../connection.php');
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>Add Menu | Admin Panel</title>
     <style>
-        .custom-shadow {
-            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.2));
-        }
+    .custom-shadow {
+        filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.2));
+    }
     </style>
 </head>
 
@@ -29,15 +29,15 @@ require('../connection.php');
             </a>
             <div class="container mx-auto px-6 flex justify-end gap-5 items-end">
 
-            <!-- Add Menu Button -->
-            <a href="addMenu.php" class="block text-gray-700 font-semibold hover:text-cyan-600 transition">
-            <i class="fas fa-plus-circle py-4"></i>
-                               <span class="hidden md:inline">Add Menu</span>
-            </a>
-            <a href="viewOrder.php" class="block text-gray-700 font-semibold hover:text-cyan-600 transition">
-            <i class="fas fa-receipt py-4"></i>
-            <span class="hidden md:inline">View Order</span>
-            </a>
+                <!-- Add Menu Button -->
+                <a href="addMenu.php" class="block text-gray-700 font-semibold hover:text-cyan-600 transition">
+                    <i class="fas fa-plus-circle py-4"></i>
+                    <span class="hidden md:inline">Add Menu</span>
+                </a>
+                <a href="adminvieworders.php" class="block text-gray-700 font-semibold hover:text-cyan-600 transition">
+                    <i class="fas fa-receipt py-4"></i>
+                    <span class="hidden md:inline">View Order</span>
+                </a>
             </div>
         </div>
     </header>
