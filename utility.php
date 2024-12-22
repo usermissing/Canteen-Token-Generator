@@ -14,10 +14,10 @@ function pay_esewa($amt, $pid)
         'psc' => 0,
         'txAmt' => 0,
         'tAmt' => $amt,
-        'pid' => $pid,
+        'pid' => rand(),
         'scd' => 'EPAYTEST',
-        'su' => 'http://localhost/Canteen-Token-Generator/',
-        'fu' => 'http://localhost/onlineliquorstore/payment/payFail.php?q=fu'
+        'su' => 'http://localhost/Canteen-Token-Generator/viewtoken.php',
+        'fu' => 'http://localhost/Canteen-Token-Generator/'
     ];
 ?>
 <form id="myForm" action="<?= $url ?>" method="post">

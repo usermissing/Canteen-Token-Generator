@@ -34,6 +34,7 @@ echo "<table class='table-auto w-3/5 mx-auto border-collapse border border-gray-
                 <th class='px-4 py-2 border'>Items</th>
                 <th class='px-4 py-2 border'>Total Cost</th>
                 <th class='px-4 py-2 border'>Action</th>
+                <th class='px-4 py-2 border'>Action</th>
             </tr>
         </thead>
         <tbody>";
@@ -76,18 +77,14 @@ foreach ($orders as $order) {
     echo "</td>
             <td class='px-4 py-2 border'>Rs. " . $order['total_cost'] . "</td>
             <td class='px-4 py-2 border'><button onclick='markCompleted(" . $order['oid'] . ")' class='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600'>Mark as Completed</button></td>
+            <td class='px-4 py-2 border'><button onclick='markCompleted(" . $order['oid'] . ")' class='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600'>Not received</button></td>
           </tr>";
 }
 
 echo "</tbody>
 </table>";
 echo "<div class='overflow-x-auto'>";
-
-
-            echo "</td>
-        <td>Rs. " . $order['total_cost'] . "</td>
-        <td><button onclick='markCompleted(" . $order['oid'] . ")'>Mark as Completed</button></td>
-          </tr>" ;  echo "</table>" ; $con->close();
+ $con->close();
                 ?>
 
 <script>
