@@ -1,4 +1,13 @@
+<div class="navbar">
+    <img src="/images/logo.png" alt="Logo">
+    <a href="index.php">About Us</a>
+
+    <a href="#">Menu</a>
+    <a href="./orderhistory.php">History</a>
+
+</div>
 <?php
+
 // Connect to your database
 include('connection.php');
 

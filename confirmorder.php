@@ -1,8 +1,7 @@
 <?php
     // Assuming you have already established a connection to the database
     include "connection.php";
-    include "header.php";
-    
+    include("utility.php");
     // Get the total cost and order items (product_id and quantity) from the frontend
     $total_cost = $_POST['total']; // The total order cost (sent from the frontend)
     $order_items = json_decode($_POST['orderData'], true); // The order items array (sent as JSON)
@@ -40,6 +39,8 @@
     $con->close();
 
     // echo "Order placed successfully with ID: " . $oid;
+
+    pay_esewa($total_cost,$oid);
 
     $order_summary = "";
 foreach ($order_items as $item) {

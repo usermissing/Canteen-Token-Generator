@@ -1,5 +1,5 @@
 <?php
-$con=mysqli_connect("localhost","root","","canteen_db");
+$con=mysqli_connect("localhost","root","","testcanteen");
 
 if(mysqli_connect_error()){
     echo"

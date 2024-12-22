@@ -100,8 +100,8 @@ if (isset($_POST['remove'])) {
     <div class="container mx-auto px-4 py-6 ">
         <!-- Display today's menu items -->
         <h1
-        class="text-center text-3xl mb-2 font-bold text-gray-700 bg-gray-50 p-6 rounded-xl shadow-lg relative overflow-hidden">
-        Today's Menu</h1>
+            class="text-center text-3xl mb-2 font-bold text-gray-700 bg-gray-50 p-6 rounded-xl shadow-lg relative overflow-hidden">
+            Today's Menu</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             <?php
             $items = fetchTodayItems($con);
@@ -130,7 +130,7 @@ if (isset($_POST['remove'])) {
         </div>
     </div>
 
-    
+
 </body>
 
 </html>

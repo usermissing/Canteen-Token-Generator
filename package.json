@@ -1,5 +1,9 @@
 {
+  "type": "module",
   "devDependencies": {
     "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "crypto-js": "^4.2.0"
   }
 }
