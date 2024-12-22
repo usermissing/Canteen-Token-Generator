@@ -1,6 +1,11 @@
 <?php
 require('../connection.php');
-
+session_start();
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
+    // Redirect to login page if the admin is not logged in
+    header("Location: login.php"); // Change 'login.php' to your login page file
+    exit();
+}
 function fetchAllItems($con) {
     $sql = "SELECT * FROM food_items";
     return $con->query($sql);
@@ -120,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_item'])) {
                                         <input type="number" name="price"  value="<?= htmlspecialchars($item['price']) ?>" class="w-full p-2 border border-gray-300 rounded">
                                     </td>
                                     <td class="px-4 py-2 border">
-                                        <textarea name="description" class="w-full p-2 border border-gray-300 rounded"><?= htmlspecialchars($item['description'] ?? '') ?></textarea>
+                                        <textarea name="description" maxlength="15" class="w-full p-2 border border-gray-300 rounded"><?= htmlspecialchars($item['description'] ?? '') ?></textarea>
                                     </td>
                                     <td class="px-4 py-2 border">
                                         <?php if (!empty($item['image_url'])): ?>
