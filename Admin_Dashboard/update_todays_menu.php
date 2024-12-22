@@ -65,6 +65,8 @@ if (isset($_GET['selected_items'])) {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans">
+<?php @include 'header.php' ?>
+
     <div class="container mx-auto max-w-screen-lg p-6">
         <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Update Quantity for Selected Items</h1>
 
@@ -80,7 +82,7 @@ if (isset($_GET['selected_items'])) {
                     echo "<div class='mb-4'>";
                     echo "<label for='quantity_{$item['item_id']}' class='block text-gray-700 font-medium'>{$item['name']} </label>";
                     echo "<input type='hidden' name='item_ids[]' value='{$item['item_id']}'>";
-                    echo "<input type='number' id='quantity_{$item['item_id']}' name='quantities[]' min='0' required class='w-full mt-1 p-2 border border-gray-300 rounded'>";
+                    echo "<input type='number' placeholder='Enter quantity for {$item['name']}' id='quantity_{$item['item_id']}' name='quantities[]' min='0' required class='w-full mt-1 p-2 border border-gray-300 rounded'>";
                     echo "</div>";
                 }
             } else {

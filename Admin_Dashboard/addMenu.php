@@ -1,6 +1,11 @@
 <?php
 require('../connection.php');
-
+session_start();
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
+    // Redirect to login page if the admin is not logged in
+    header("Location: login.php");
+    exit();
+}
 // Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
@@ -78,13 +83,13 @@ function addMenuItem($con, $name, $price, $image_url, $description) {
         
         <form action="" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-lg">
             <div class="mb-4">
-                <label for="name" class="block text-lg font-semibold text-gray-700">Name:</label>
-                <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <label for="name" class="block text-lg font-semibold text-gray-700">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter item name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
             
             <div class="mb-4">
-                <label for="price" class="block text-lg font-semibold text-gray-700">Price:</label>
-                <input type="number" max="500" id="price" name="price" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                <label for="price" class="block text-lg font-semibold text-gray-700">Price</label>
+                <input type="number" max="500" id="price" name="price" placeholder="Enter item price" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
             </div>
             
             <div class="mb-4">
@@ -94,7 +99,7 @@ function addMenuItem($con, $name, $price, $image_url, $description) {
             
             <div class="mb-4">
                 <label for="description" class="block text-lg font-semibold text-gray-700">Description:</label>
-                <textarea id="description" name="description" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+                <textarea id="description" name="description" placeholder="Enter item description" maxlength="15" rows="4" class="w-full  px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
             </div>
             
             <div class="text-center">

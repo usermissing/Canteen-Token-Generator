@@ -1,6 +1,8 @@
 <?php
     // Assuming you have already established a connection to the database
     include "connection.php";
+    include "header.php";
+    
     // Get the total cost and order items (product_id and quantity) from the frontend
     $total_cost = $_POST['total']; // The total order cost (sent from the frontend)
     $order_items = json_decode($_POST['orderData'], true); // The order items array (sent as JSON)

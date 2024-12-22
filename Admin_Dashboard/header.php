@@ -1,5 +1,11 @@
 <?php
 require('../connection.php');
+session_start();
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
+    // Redirect to login page if the admin is not logged in
+    header("Location: login.php"); // Change 'login.php' to your login page file
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,22 +27,25 @@ require('../connection.php');
 
 <body class="bg-gray-100 font-sans ">
     <!-- Header Section -->
-    <header class="bg-white shadow-md py-4 fixed w-full z-50">
+    <header class="bg-white shadow-md py- fixed w-full z-50">
         <div class="container mx-auto px-6 flex items-center ">
             <!-- Logo -->
             <a href="index.php" class="flex items-center">
-                <img src="img/logo1.png" alt="Logo" class="h-10 custom-shadow">
+                <img src="../images/logo1.png" alt="Logo" class="h-24 custom-shadow">
             </a>
             <div class="container mx-auto px-6 flex justify-end gap-5 items-end">
-
             <!-- Add Menu Button -->
             <a href="addMenu.php" class="block text-gray-700 font-semibold hover:text-cyan-600 transition">
             <i class="fas fa-plus-circle py-4"></i>
                                <span class="hidden md:inline">Add Menu</span>
             </a>
-            <a href="viewOrder.php" class="block text-gray-700 font-semibold hover:text-cyan-600 transition">
+            <a href="adminvieworders.php" class="block text-gray-700 font-semibold hover:text-cyan-600 transition">
             <i class="fas fa-receipt py-4"></i>
             <span class="hidden md:inline">View Order</span>
+            </a>
+            <a href="logout.php" class="block text-red-600 font-semibold hover:text-red-400 transition">
+            <i class="fas fa-sign-out-alt py-4"></i> 
+            <span class="hidden md:inline">Logout</span>
             </a>
             </div>
         </div>

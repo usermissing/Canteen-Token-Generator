@@ -1,5 +1,11 @@
 <?php
 require('../connection.php');
+session_start();
+if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
+    // Redirect to login page if the admin is not logged in
+    header("Location: login.php"); 
+    exit();
+}
 function fetchItems($con)
 {
     $sql = "SELECT * FROM food_items WHERE availability_status = 'Available'";
@@ -58,12 +64,14 @@ if (isset($_POST['remove'])) {
     <div class="container mx-auto px-4 py-6">
         <h1
             class="text-center lg:text-3xl text-xl font-bold text-gray-700 bg-gray-50 p-6 rounded-xl shadow-lg relative overflow-hidden">
-            <span class="relative z-10">Select Items for Today's Menu</span>
+            welcome to admin panel
+
+            <!-- <span class="relative z-10"></span> -->
         </h1>
 
 
         <form action="update_todays_menu.php" method="POST" class="bg-white p-6 rounded-lg shadow-lg space-y-4">
-            <label for="items" class="block text-lg font-semibold text-gray-700">Select Items:</label>
+            <label for="items" class="block text-lg font-semibold text-gray-700">Select Items for Today's Menu</label>
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
                 <?php
                 $items = fetchItems($con);
@@ -92,7 +100,7 @@ if (isset($_POST['remove'])) {
     <div class="container mx-auto px-4 py-6 ">
         <!-- Display today's menu items -->
         <h1
-        class="text-center text-3xl mb-1 font-bold text-gray-700 bg-gray-50 p-6 rounded-xl shadow-lg relative overflow-hidden">
+        class="text-center text-3xl mb-2 font-bold text-gray-700 bg-gray-50 p-6 rounded-xl shadow-lg relative overflow-hidden">
         Today's Menu</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             <?php
@@ -122,25 +130,7 @@ if (isset($_POST['remove'])) {
         </div>
     </div>
 
-    <div class="container">
-        <h1>Today's Menu</h1>
-        <div class="grid-container">
-            <?php
-            $items = fetchTodayItems($con);
-            if ($items->num_rows > 0) {
-                while ($item = $items->fetch_assoc()) {
-                    echo "<div class='item'>";
-                    echo "<strong>Name:</strong> {$item['name']}<br>";
-                    echo "<strong>Quantity:</strong> {$item['quantity']}<br>";
-                    echo "<strong>Price:</strong> {$item['price']}<br>";
-                    echo "</div>";
-                }
-            } else {
-                echo "<p>No items available for today</p>";
-            }
-            ?>
-        </div>
-    </div>
+    
 </body>
 
 </html>
