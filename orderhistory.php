@@ -1,15 +1,6 @@
-<div class="navbar">
-    <img src="/images/logo.png" alt="Logo">
-    <a href="index.php">About Us</a>
-
-    <a href="#">Menu</a>
-    <a href="./orderhistory.php">History</a>
-
-</div>
 <?php
-
-// Connect to your database
 include('connection.php');
+include('header.php');
 
 // Query to get all orders along with their items
 $sql = "
@@ -28,7 +19,6 @@ $sql = "
         order_items oi ON o.oid = oi.oid
     LEFT JOIN 
         food_items i ON oi.item_id = i.item_id
-    
     ORDER BY 
         o.created_at ASC
 ";
@@ -62,25 +52,30 @@ while ($row = $result->fetch_assoc()) {
     ];
 }
 
-// Display the orders and their items
+// Display the orders and their items in a row
+echo "<div class='flex flex-wrap gap-5 m-10 justify-center'>";
 foreach ($orders as $order) {
-    echo "<h2>Order ID: " . $order['oid'] . "</h2>";
-    echo "<h2>Date: " . $order['created_at'] . "</h2>";
-    echo "<p>Status: " . $order['status'] . "</p>";
-    echo "<p>Total Cost: Rs. " . $order['total_cost'] . "</p>";
+    echo "<div class='bg-white shadow-md rounded-lg p-6 w-full md:w-1/3 lg:w-1/5'>"; 
+    echo "<h2 class='text-lg font-bold text-blue-400'>Token No: " . $order['oid'] . "</h2>";
+    echo "<h2 class='text-sm  text-gray-700'>Date: " . $order['created_at'] . "</h2>";
+    echo "<p class='text-gray-700'>Status: <span class='font-medium'>" . $order['status'] . "</span></p>";
+    echo "<p class='text-gray-700'>Total Cost: <span class='font-medium'>Rs. " . $order['total_cost'] . "</span></p>";
 
-    echo "<h3>Items in this Order:</h3>";
-    echo "<ul>";
+    echo "<h3 class='text-md font-semibold mt-4 text-green-600'>Items in this Order:</h3>";
+    echo "<ul class='list-disc ml-6'>";
     foreach ($order['items'] as $item) {
-        echo "<li>";
-        echo "Item: " . $item['name'] . " - ";
-        echo "Price: Rs. " . $item['price'] . " - ";
-        echo "Quantity: " . $item['quantity'] . " - ";
-        echo "Total Price: Rs. " . $item['total_price'];
+        echo "<li class='text-gray-600'>";
+        echo "<span class='font-medium '>Item:</span> " . $item['name'] . " ";
+        echo "<span class='font-medium'>Price:</span> Rs. " . $item['price'] . "  ";
+        echo "<span class='font-medium'>Quantity:</span> " . $item['quantity'] . "  ";
+        echo "<span class='font-medium'>Total Price:</span> Rs. " . $item['total_price'];
         echo "</li>";
     }
     echo "</ul>";
+    echo "</div>";
 }
+echo "</div>";
 
 $con->close();
 ?>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
