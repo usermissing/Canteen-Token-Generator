@@ -59,6 +59,13 @@ body {
     font-weight: bold;
     color: #333;
 }
+.date {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color:#FFFFFF;
+}
 </style>
 <?php
 // Connect to your database
@@ -68,6 +75,7 @@ $sql = "
 SELECT
 o.oid,
 o.total_cost,
+o.created_at,
 i.name,
 oi.quantity,
 i.price,
@@ -96,6 +104,8 @@ echo "<div class='overflow-x-auto'>";
     $orders[$oid] = [
     'oid' => $oid,
     'total_cost' => $row['total_cost'],
+    'created_at' => $row['created_at'],
+
     'items' => []
     ];
     }
@@ -113,9 +123,14 @@ foreach ($orders as $order) {
     echo '
     <div class="token-display">
         Token Number: '.$order["oid"].'
-    </div>
+        
+        <div class="date">
+        date: '.$order["created_at"].'
+        </div>
+        </div>
 
     ';
+
         
         
 }

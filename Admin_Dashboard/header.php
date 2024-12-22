@@ -43,6 +43,10 @@ if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
                     <i class="fas fa-receipt py-4"></i>
                     <span class="hidden md:inline">View Order</span>
                 </a>
+                <a href="orderHistory.php" class="block text-gray-700 font-semibold hover:text-cyan-600 transition">
+                    <i class="fas fa-history py-4"></i>
+                    <span class="hidden md:inline">Order History</span>
+                </a>
                 <a href="logout.php" class="block text-red-600 font-semibold hover:text-red-400 transition">
                     <i class="fas fa-sign-out-alt py-4"></i>
                     <span class="hidden md:inline">Logout</span>
