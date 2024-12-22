@@ -77,7 +77,7 @@ foreach ($orders as $order) {
     echo "</td>
             <td class='px-4 py-2 border'>Rs. " . $order['total_cost'] . "</td>
             <td class='px-4 py-2 border'><button onclick='markCompleted(" . $order['oid'] . ")' class='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600'>Mark as Completed</button></td>
-            <td class='px-4 py-2 border'><button onclick='markCompleted(" . $order['oid'] . ")' class='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600'>Not received</button></td>
+            <td class='px-4 py-2 border'><button onclick='notreceived(" . $order['oid'] . ")' class='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600'>Not received</button></td>
           </tr>";
 }
 
@@ -103,6 +103,28 @@ function markCompleted(orderId) {
         .then(data => {
             if (data.success) {
                 alert('Order marked as completed!');
+                location.reload(); // Reload the page to show the updated list
+            } else {
+                alert('Error marking order as completed');
+            }
+        });
+}
+
+function notreceived(orderId) {
+    // Send a request to the server to mark the order as completed
+    fetch('mark_order_completed.php', {
+            method: 'POST',
+            body: JSON.stringify({
+                oid: orderId
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Order Not received!');
                 location.reload(); // Reload the page to show the updated list
             } else {
                 alert('Error marking order as completed');
